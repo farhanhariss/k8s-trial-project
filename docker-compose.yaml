@@ -1,0 +1,25 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: userku
+      POSTGRES_PASSWORD: passku
+      POSTGRES_DB: pesandb
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: backend-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    container_name: frontend-web
+    ports:
+      - "8080:80"
